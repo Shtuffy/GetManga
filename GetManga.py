@@ -4,10 +4,9 @@ from tkinter import *
 import webbrowser
 import os
 
-reddit = praw.Reddit(client_id='v2-FmpdKuC_Lfw', client_secret='VROuxQeBU70Y5iVkXyN3aiskJ90', user_agent='my user agent')
+reddit = praw.Reddit(client_id='my client id', client_secret='my client secret', user_agent='my user agent')
 
 filepath = 'C:/GetManga/'
-
 
 def create_folder(directory):
     try:
