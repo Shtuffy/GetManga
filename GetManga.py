@@ -4,7 +4,7 @@ from tkinter import *
 import webbrowser
 import os
 
-reddit = praw.Reddit(client_id='my client id', client_secret='my client secret', user_agent='my user agent')
+reddit = praw.Reddit(client_id='v2-FmpdKuC_Lfw', client_secret='VROuxQeBU70Y5iVkXyN3aiskJ90', user_agent='my user agent')
 
 filepath = 'C:/GetManga/'
 
@@ -157,16 +157,39 @@ class CreateGUI:
             print(mangaentry.get() + " already in mangaList.")
 
 
+running = False
+
+
+def live_updating():
+    if running:
+        CreateGUI.display_manga()
+
+    root.after(1000, live_updating)
+
+
+def start():
+    global running
+    running = True
+
+
+def stop():
+    global running
+    running = False
+
+
 Button(root, text="add", command=CreateGUI.add_to_manga).grid(row=len(chapters) + 1, column=2, sticky=W, pady=4)
 Button(root, text="display", command=CreateGUI.display_manga).grid(row=len(chapters) + 2, column=1, sticky=W, pady=4)
 Button(root, text="clear lookups", command=CreateGUI.clear_actualmanga_file).grid(row=len(chapters) + 2, column=2, sticky=W, pady=4)
 Button(root, text="clear links", command=CreateGUI.clear_actualmangalinks_file).grid(row=len(chapters) + 3, column=2, sticky=W, pady=4)
 Button(root, text="clear names", command=CreateGUI.clear_mangalist_file).grid(row=len(chapters) + 2, column=4, sticky=W, pady=4)
 Button(root, text="delete display", command=CreateGUI.clear_display).grid(row=len(chapters) + 3, column=4, sticky=W, pady=4)
-#    Button(root, text="live updater", command=start_live_updater).grid(row=len(chapters) + 2, column=6, sticky=W, pady=4)
-#    Button(root, text="stop live updater", command=stop_live_updater).grid(row=len(chapters) + 3, column=6, sticky=W, pady=4)
+Button(root, text="live updater", command=start).grid(row=len(chapters) + 2, column=6, sticky=W, pady=4)
+Button(root, text="stop live updater", command=stop).grid(row=len(chapters) + 3, column=6, sticky=W, pady=4)
 
 CreateGUI.clear_actualmangalinks_file()
 CreateGUI.clear_actualmanga_file()
 CreateGUI()
+
+root.after(1000, live_updating)
+
 root.mainloop()
